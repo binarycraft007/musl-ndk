@@ -1,8 +1,14 @@
 const std = @import("std");
-const c = @cImport({
-    @cInclude("android/api-level.h");
-    @cInclude("sys/system_properties.h");
-});
+const logd_writer = @import("log/logd_writer.zig");
+const pmsg_writer = @import("log/pmsg_writer.zig");
+const c = @import("c.zig");
+
+comptime {
+    @export(logd_writer.logdClose, .{ .name = "LogdClose" });
+    @export(logd_writer.logdWrite, .{ .name = "LogdWrite" });
+    @export(pmsg_writer.pmsgClose, .{ .name = "PmsgClose" });
+    @export(pmsg_writer.pmsgWrite, .{ .name = "PmsgWrite" });
+}
 
 export fn android_get_device_api_level() c_int {
     var value: [92]u8 = [1]u8{0} ** 92;

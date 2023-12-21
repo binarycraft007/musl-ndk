@@ -13,6 +13,7 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
     lib.defineCMacro("__ANDROID__", null);
+    lib.defineCMacro("LIBLOG_LOG_TAG", "1006");
     lib.linkLibC();
     lib.linkLibCpp();
     lib.addCSourceFiles(.{
@@ -52,7 +53,6 @@ const bionic_src = [_][]const u8{
     "src/log/log_event_list.cpp",
     "src/log/log_event_write.cpp",
     "src/log/logger_name.cpp",
-    "src/log/logger_read.cpp",
     "src/log/logger_write.cpp",
     "src/log/logprint.cpp",
     "src/log/properties.cpp",
